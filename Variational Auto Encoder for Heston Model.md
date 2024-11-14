@@ -12,18 +12,9 @@ Variational autoencoders (VAEs) belong to a broader family of probabilistic auto
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/Screenshot%202024-11-14%20152106.jpg" width="80%" height="100%">
 </p>
 
+In essence, probabilistic autoencoders learn to model the distribution of the data in the latent space, which enables them to generate new examples by sampling from this distribution. This generative capability makes probabilistic autoencoders especially powerful. The key idea in a VAEs is to ensure that this encoder distribution over the latent space is close to a simple, fixed distribution, typically a standard normal distribution $$N(0, I)$$, where $$I$$ is the identity matrix. By making the encoder output close to $$N(0, I)$$, we can easily sample new latent representations from this standard normal distribution and pass them through the decoder to generate new data points. 
 
 
-
-In essence, probabilistic autoencoders learn to model the distribution of the data in the latent space, which enables them to generate new examples by sampling from this distribution. This generative capability makes probabilistic autoencoders especially powerful.
-
-In order to use this structure as a generative model, we need to understand the role of the encoder, represented by $$f: P(h | x; W_f)$$. The key idea in a Variational Autoencoder (VAE) [^1] is to ensure that this encoder distribution over the latent space is close to a simple, fixed distribution, typically a standard normal distribution $$N(0, I)$$, where $$I$$ is the identity matrix.
-
-This goal of aligning $$P(h | x; W_f)$$ with a standard normal distribution serves two important purposes in the generative modeling process:
-
-1. **Regularization of the Latent Space**: By constraining the latent space to follow a standard normal distribution, we ensure that the learned representations $$h$$ are not only compact but also well-organized. This regularization helps prevent overfitting and enables the model to generate meaningful samples by sampling from this fixed distribution. Without this constraint, the latent space could be highly irregular, making it difficult to generate coherent outputs.
-
-2. **Facilitating Generation of New Samples**: By making the encoder output close to $$N(0, I)$$, we can easily sample new latent representations from this standard normal distribution and pass them through the decoder to generate new data points. This ability to sample directly from a well-defined distribution in the latent space is what gives VAEs their generative power.
 
 In a VAE, training involves calculating gradients to optimize the encoder and decoder networks. However, because the encoder outputs a probability distribution rather than a fixed value, we face a challenge when trying to backpropagate through the stochastic sampling step. This sampling introduces randomness, which would disrupt the flow of gradients and make it difficult to train the model effectively.
 
