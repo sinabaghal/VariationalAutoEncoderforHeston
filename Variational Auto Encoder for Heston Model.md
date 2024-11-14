@@ -20,15 +20,26 @@ $$
 \max_{W} \sum_{n} \log \Pr(x_n; W_f, W_g) - \beta \text{KL}\left(\Pr(h \mid x_n; W_f) \| \mathcal{N}(h; 0, I)\right)
 $$
 
-How do we compute $$\Pr(x_n; W_f, W_g)$$? We have 
+How do we compute $$\Pr(x_n; W_f, W_g)$$ now? We have 
 
 $$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \Pr(h \mid x_n; W_f) \, dh$$
 
-We now make a significant simplification: We assume that
+Make a significant simplification: assume that
 
 $$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n(x_n; W_f) I)$$
 
 where the mean $$\mu_n$$ and variance $$\sigma_n$$ are obtained through the encoder.
+
+Next, we need to approximate the integral over $$h$$. Notice that 
+
+$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n(x_n; W_f) I) \, dh$$
+    
+Approximate this integral by a single sample, namely:
+
+$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)$$
+    
+where $$h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n(x_n; W_f) I)$$.
+
 
 In a VAE, training involves calculating gradients to optimize the encoder and decoder networks. However, because the encoder outputs a probability distribution rather than a fixed value, we face a challenge when trying to backpropagate through the stochastic sampling step. This sampling introduces randomness, which would disrupt the flow of gradients and make it difficult to train the model effectively.
 
