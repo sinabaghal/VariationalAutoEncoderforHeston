@@ -24,11 +24,11 @@ How do we compute $$\Pr(x_n; W_f, W_g)$$? We have
 
 $$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \Pr(h \mid x_n; W_f) \, dh$$
 
-We make a massive simplification next, which exhibits promissing results in practice. We make the assumption that 
+We now make a significant simplification: We assume that
 
 $$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n(x_n; W_f) I)$$
 
-where the mean $$\mu_n$$ and variance $$\sigma_n$$ are obtained through encoder.
+where the mean $$\mu_n$$ and variance $$\sigma_n$$ are obtained through the encoder.
 
 In a VAE, training involves calculating gradients to optimize the encoder and decoder networks. However, because the encoder outputs a probability distribution rather than a fixed value, we face a challenge when trying to backpropagate through the stochastic sampling step. This sampling introduces randomness, which would disrupt the flow of gradients and make it difficult to train the model effectively.
 
