@@ -26,11 +26,11 @@ $$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \Pr(h \mid x_n; W_f) \, dh$$
 
 Make a significant simplification: assume that
 
-$$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n(x_n; W_f) I)$$
+$$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
 
 where the mean $$\mu_n$$ and variance $$\sigma_n$$ are obtained through the encoder. Next, we need to approximate the integral over $$h$$. Notice that 
 
-$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n(x_n; W_f) I) \, dh$$
+$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I) \, dh$$
     
 Approximate this integral by a single sample, namely:
 
