@@ -22,3 +22,42 @@ This goal of aligning $$P(h | x; W_f)$$ with a standard normal distribution serv
 
 2. **Facilitating Generation of New Samples**: By making the encoder output close to $$N(0, I)$$, we can easily sample new latent representations from this standard normal distribution and pass them through the decoder to generate new data points. This ability to sample directly from a well-defined distribution in the latent space is what gives VAEs their generative power.
 
+In a Variational Autoencoder (VAE), training involves calculating gradients to optimize the encoder and decoder networks. However, because the encoder outputs a probability distribution rather than a fixed value, we face a challenge when trying to backpropagate through the stochastic sampling step. This sampling introduces randomness, which would disrupt the flow of gradients and make it difficult to train the model effectively.
+
+
+To address this, VAEs use a technique called the **reparameterization trick**. This trick allows us to rewrite the sampling step in a way that makes it differentiable and therefore compatible with backpropagation. Instead of sampling directly from the distribution $$h \sim q(h|x)$$, we rewrite $$h$$ as a deterministic function of the encoder’s output parameters (mean $$\mu$$ and variance $$\sigma$$) and an independent random variable $$\epsilon$$ that we sample from a standard normal distribution.
+
+The reparameterization trick transforms the sampling as follows:
+
+
+
+$$
+
+h = \mu(x) + \sigma(x) \cdot \epsilon
+
+$$
+
+
+
+where $$\epsilon \sim N(0, I)$$. In this form:
+
+
+
+- $$\mu(x)$$ and $$\sigma(x)$$ are outputs of the encoder network, representing the mean and standard deviation of the latent distribution $$q(h|x)$$.
+
+- $$\epsilon$$ is a random variable sampled from a standard normal distribution, independent of $$x$$.
+
+
+
+This transformation effectively makes the sample $$h$$ a function of $$x$$ and the learned parameters $$W_f$$ of the encoder network, with the randomness isolated in $$\epsilon$$. Now, $$h$$ can be treated as a deterministic input to the decoder network during backpropagation, allowing us to compute gradients with respect to the encoder parameters.
+
+
+
+In other words, the **reparameterization trick** allows us to "move" the randomness outside the network by making the sample $$h$$ depend on a deterministic transformation of $$\mu(x)$$ and $$\sigma(x)$$ with the added random noise $$\epsilon$$. This approach enables the network to learn effectively by allowing gradients to flow back through the encoder during training.
+
+
+
+The result is that we can now derive and optimize the variational lower bound, or **Evidence Lower Bound (ELBO)**, by backpropagating through the entire VAE architecture. This trick is crucial for making the VAE trainable and is one of the key innovations that make VAEs effective generative models.
+
+
+
