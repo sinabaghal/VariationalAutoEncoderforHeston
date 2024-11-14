@@ -36,7 +36,7 @@ $$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f
     
 - Next, approximate this integral by a single sample, namely:
 
-$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g),  h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$.
+$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g),  h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
 
 
 In a VAE, training involves calculating gradients to optimize the encoder and decoder networks. However, because the encoder outputs a probability distribution rather than a fixed value, we face a challenge when trying to backpropagate through the stochastic sampling step. This sampling introduces randomness, which would disrupt the flow of gradients and make it difficult to train the model effectively.
