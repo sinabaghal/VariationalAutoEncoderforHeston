@@ -28,8 +28,7 @@ We make a massive simplification next, which exhibits promissing results in prac
 
 $$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n(x_n; W_f) I)$$
 
-where the mean \( \mu_n \) and variance \( \sigma_n \) are obtained by a neural net in \( x_n \) parametrized by \( W_f \).
-
+where the mean $$\mu_n$$ and variance $$\sigma_n$$ are obtained through encoder.
 
 In a VAE, training involves calculating gradients to optimize the encoder and decoder networks. However, because the encoder outputs a probability distribution rather than a fixed value, we face a challenge when trying to backpropagate through the stochastic sampling step. This sampling introduces randomness, which would disrupt the flow of gradients and make it difficult to train the model effectively.
 
