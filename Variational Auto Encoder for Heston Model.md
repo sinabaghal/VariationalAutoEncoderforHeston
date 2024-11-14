@@ -12,3 +12,13 @@ In probabilistic autoencoders, we can denote these conditional distributions as 
 
 
 In essence, probabilistic autoencoders learn to model the distribution of the data in the latent space, which enables them to generate realistic, new examples by sampling from this distribution. This generative capability makes probabilistic autoencoders especially powerful for tasks such as data generation, anomaly detection, and representation learning.
+
+In order to use this structure as a generative model, we need to understand the role of the encoder, represented by $$f: P(h | x; W_f)$$, where $$h$$ is the latent representation, $$x$$ is the input, and $$W_f$$ represents the encoder’s parameters. The key idea in a Variational Autoencoder (VAE) is to ensure that this encoder distribution over the latent space is close to a simple, fixed distribution, typically a standard normal distribution $$N(0, I)$$, where $$I$$ is the identity matrix.
+
+
+This goal of aligning $$P(h | x; W_f)$$ with a standard normal distribution serves two important purposes in the generative modeling process:
+
+1. **Regularization of the Latent Space**: By constraining the latent space to follow a standard normal distribution, we ensure that the learned representations $$h$$ are not only compact but also well-organized. This regularization helps prevent overfitting and enables the model to generate meaningful samples by sampling from this fixed distribution. Without this constraint, the latent space could be highly irregular, making it difficult to generate coherent outputs.
+
+2. **Facilitating Generation of New Samples**: By making the encoder output close to $$N(0, I)$$, we can easily sample new latent representations from this standard normal distribution and pass them through the decoder to generate new data points. This ability to sample directly from a well-defined distribution in the latent space is what gives VAEs their generative power.
+
