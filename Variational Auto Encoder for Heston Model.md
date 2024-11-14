@@ -1,10 +1,8 @@
 ### Variational Autoencoders 
 
-Autoencoders are neural networks designed to take an input and learn a compressed or intermediate representation of it, often called a "latent" representation. This intermediate representation captures the essential features of the input in a reduced form. The autoencoder then uses a decoder to reconstruct the original input from this latent representation. However, traditional autoencoders are generally deterministic—they simply aim to reconstruct the input as accurately as possible without explicitly modeling the underlying data distribution.
+This section provides a brief overview of variational autoencoders (VAEs). For a deeper understanding, refer to [^1]. Video lectures [^2] are also an excellent resource for learning the core concepts of VAEs.
 
-Probabilistic Autoencoders, such as Variational Autoencoders (VAEs), go a step further by introducing a probabilistic framework that allows them not only to reconstruct the input but also to generate new data. In this framework, the encoder and decoder are no longer deterministic mappings; instead, they represent probabilistic distributions. The encoder maps an input $$x$$ to a distribution over the latent space, encoding the input into a conditional distribution of latent variables, rather than a single point. The decoder then takes a sample from this latent distribution to produce a conditional distribution over possible reconstructions of $$x$$.
-
-In probabilistic autoencoders, we can denote these conditional distributions as $$f$$ and $$g$$ for the encoder and decoder, respectively:
+Variational autoencoders (VAEs) belong to a broader family of probabilistic autoencoders. Unlike deterministic autoencoders, probabilistic autoencoders introduce a probabilistic framework that enables them not only to reconstruct input data but also to generate new data. In this framework, the encoder and decoder are no longer deterministic mappings; instead, they represent probabilistic distributions. The encoder maps an input $$x$$ to a distribution over the latent space, encoding it into a conditional distribution of latent variables rather than a single point. The decoder then samples from this latent distribution to produce a conditional distribution over possible reconstructions of $$x$$. In probabilistic autoencoders, we can denote these conditional distributions as $$f$$ and $$g$$ for the encoder and decoder, respectively:
 
 - $$f: P(h \mid x; W_f)$$, where $$h$$ is the latent representation conditioned on the input $$x$$, and $$W_f$$ are the parameters of the encoder. This distribution captures the probability of various representations $$h$$ given the input $$x$$.
 
@@ -44,6 +42,11 @@ In other words, the **reparameterization trick** allows us to "move" the randomn
 
 
 The result is that we can now derive and optimize the variational lower bound, or **Evidence Lower Bound (ELBO)**, by backpropagating through the entire VAE architecture. This trick is crucial for making the VAE trainable and is one of the key innovations that make VAEs effective generative models.
+
+### References 
+
+[^1]: Kingma, D., Welling, M. (2019). *An Introduction to Variational Autoencoders*. [arXiv:1906.02691](https://arxiv.org/abs/1906.02691)
+[^2]: Poupart, P. (2019). *Introduction to Machine Learning*. [CS480/690 UWaterloo](https://cs.uwaterloo.ca/~ppoupart/teaching/cs480-spring19/)
 
 
 
