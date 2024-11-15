@@ -46,7 +46,7 @@ The figure below illustrates the network architecture.
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/Screenshot 2024-11-14 172234.jpg" width="80%" height="100%">
 </p>
 
-With this architecture, we face a challenge when trying to backpropagate through the stochastic sampling step. The sampling introduces randomness, which disrupts the flow of gradients and makes the training infeasible. To address this, VAEs use a technique called the **reparameterization**: Instead of sampling directly from the distribution $$h \sim q(h|x)$$, we rewrite $$h$$ as a deterministic function of the encoder’s output parameters (mean $$\mu$$ and variance $$\sigma$$) and an independent random variable $$\zeta$ \sim \mathcal{N}(0,I)$. The reparameterization trick transforms the sampling as follows:
+With this architecture, we face a challenge when trying to backpropagate through the stochastic sampling step. The sampling introduces randomness, which disrupts the flow of gradients and makes the training infeasible. To address this, VAEs use a technique called the **reparameterization**: Instead of sampling directly from the distribution $$h \sim q(h|x)$$, we rewrite $$h$$ as a deterministic function of the encoder’s output parameters (mean $$\mu$$ and variance $$\sigma$$) and an independent random variable $$\zeta \sim \mathcal{N}(0,I)$. The reparameterization trick transforms the sampling as follows:
 
 $$
 h = \mu_h(x) + \sigma_h(x) \cdot \zeta \quad \text{where} \quad \zeta \sim \mathcal{N}(0,I)
