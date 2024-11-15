@@ -36,23 +36,23 @@ $$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f
     
 - Second, approximate this integral by a single sample, namely:
 
-$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \, h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
+$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \quad h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
 
 **NB:** In the context of training with stochastic gradient descent, this may not be considered an oversimplification!
 
+The figure below illustrates the network architecture.
 
-In a VAE, training involves calculating gradients to optimize the encoder and decoder networks. However, because the encoder outputs a probability distribution rather than a fixed value, we face a challenge when trying to backpropagate through the stochastic sampling step. This sampling introduces randomness, which would disrupt the flow of gradients and make it difficult to train the model effectively.
+<p align="center">
+<img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/Screenshot 2024-11-14 172234.jpg" width="80%" height="100%">
+</p>
 
-
-To address this, VAEs use a technique called the **reparameterization trick**. This trick allows us to rewrite the sampling step in a way that makes it differentiable and therefore compatible with backpropagation. Instead of sampling directly from the distribution $$h \sim q(h|x)$$, we rewrite $$h$$ as a deterministic function of the encoder’s output parameters (mean $$\mu$$ and variance $$\sigma$$) and an independent random variable $$\epsilon$$ that we sample from a standard normal distribution.
-
-The reparameterization trick transforms the sampling as follows:
+With this architecture, we face a challenge when trying to backpropagate through the stochastic sampling step. The sampling introduces randomness, which disrupts the flow of gradients and makes the training infeasible. To address this, VAEs use a technique called the **reparameterization**: Instead of sampling directly from the distribution $$h \sim q(h|x)$$, we rewrite $$h$$ as a deterministic function of the encoder’s output parameters (mean $$\mu$$ and variance $$\sigma$$) and an independent random variable $$\zeta$ \sim \mathcal{N}(0,I)$. The reparameterization trick transforms the sampling as follows:
 
 $$
-h = \mu(x) + \sigma(x) \cdot \epsilon
+h = \mu(x) + \sigma(x) \cdot \zeta \quad \text{where} \quad \zeta$ \sim \mathcal{N}(0,I)
 $$
 
-where $$\epsilon \sim N(0, I)$$. In this form:
+In this form:
 
 - $$\mu(x)$$ and $$\sigma(x)$$ are outputs of the encoder network, representing the mean and standard deviation of the latent distribution $$q(h|x)$$.
 - $$\epsilon$$ is a random variable sampled from a standard normal distribution, independent of $$x$$.
