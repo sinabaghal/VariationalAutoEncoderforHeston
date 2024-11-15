@@ -49,22 +49,19 @@ The figure below illustrates the network architecture.
 With this architecture, we face a challenge when trying to backpropagate through the stochastic sampling step. The sampling introduces randomness, which disrupts the flow of gradients and makes the training infeasible. To address this, VAEs use a technique called the **reparameterization**: Instead of sampling directly from the distribution $$h \sim q(h|x)$$, we rewrite $$h$$ as a deterministic function of the encoder’s output parameters (mean $$\mu$$ and variance $$\sigma$$) and an independent random variable $$\zeta$ \sim \mathcal{N}(0,I)$. The reparameterization trick transforms the sampling as follows:
 
 $$
-h = \mu(x) + \sigma(x) \cdot \zeta \quad \text{where} \quad \zeta$ \sim \mathcal{N}(0,I)
+h = \mu_h(x) + \sigma_h(x) \cdot \zeta \quad \text{where} \quad \zeta \sim \mathcal{N}(0,I)
 $$
 
-In this form:
+Here
 
-- $$\mu(x)$$ and $$\sigma(x)$$ are outputs of the encoder network, representing the mean and standard deviation of the latent distribution $$q(h|x)$$.
-- $$\epsilon$$ is a random variable sampled from a standard normal distribution, independent of $$x$$.
+- $$\mu(x)$$ and $$\sigma(x)$$ are the mean and standard deviation of the latent distribution $$q(h|x)$$.
+- $$\zeta$$ is a random variable sampled from a standard normal distribution, independent of $$x$$.
 
+This transformation effectively makes the sample $$h$$ a function of $$x$$ and the learned parameters $$W_f$$, with the randomness isolated in $$\zeta$$. Now, $$h$$ can be treated as a deterministic input to the decoder network during backpropagation, allowing us to compute gradients with respect to the encoder parameters. The resulting network looks as follows:
 
-This transformation effectively makes the sample $$h$$ a function of $$x$$ and the learned parameters $$W_f$$ of the encoder network, with the randomness isolated in $$\epsilon$$. Now, $$h$$ can be treated as a deterministic input to the decoder network during backpropagation, allowing us to compute gradients with respect to the encoder parameters.
-
-
-In other words, the **reparameterization trick** allows us to "move" the randomness outside the network by making the sample $$h$$ depend on a deterministic transformation of $$\mu(x)$$ and $$\sigma(x)$$ with the added random noise $$\epsilon$$. This approach enables the network to learn effectively by allowing gradients to flow back through the encoder during training.
-
-
-The result is that we can now derive and optimize the variational lower bound, or **Evidence Lower Bound (ELBO)**, by backpropagating through the entire VAE architecture. This trick is crucial for making the VAE trainable and is one of the key innovations that make VAEs effective generative models.
+<p align="center">
+<img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/Screenshot 2024-11-14 172648.jpg" width="80%" height="100%">
+</p>
 
 ### References 
 
