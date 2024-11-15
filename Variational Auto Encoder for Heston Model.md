@@ -63,7 +63,7 @@ This transformation effectively makes the sample $$h$$ a function of $$x$$ and t
 Now, returning to the second approximation and recalling that $$Pr(x_n; W_f, W_g)$$ represents the probability of reconstructing $$x_n$$, we find that:
 
 $$
-\log Pr(x_n; W_f, W_g) \approx -\frac{1}{2}||x_n-\tilde{x}_n||^2
+\log Pr(x_n; W_f, W_g) \approx -\frac{1}{2}\Vert x_n-\tilde{x}_n\Vert^2
 $$
 
 Moreover, recall that the KL divergence between $$N(\mu, \sigma^2) \)$$ and $$N(0, 1)$$ is given by:
@@ -75,7 +75,7 @@ $$
 Putting pieces together, scalingwe arrive at the following loss function for training our VAE:
 
 $$
-\min \sum_n ||x_n-\tilde{x}_n||^2 + \beta \cdot  \left( \sigma^2 + \mu^2 - 1 - \ln(\sigma^2) \right)
+\min \sum_n \Vert x_n-\tilde{x}_n\Vert^2 + \beta \cdot  \left( \sigma^2 + \mu^2 - 1 - \ln(\sigma^2) \right)
 $$
 
 ### References 
