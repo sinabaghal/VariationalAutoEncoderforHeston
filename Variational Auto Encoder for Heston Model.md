@@ -36,7 +36,7 @@ $$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f
     
 - Second, approximate this integral by a single sample, namely:
 
-$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \quad h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
+$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \quad h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I) \tag{1} \label{eq:approx}$$
 
 **NB:** In the context of training with stochastic gradient descent, this may not be considered an oversimplification!
 
