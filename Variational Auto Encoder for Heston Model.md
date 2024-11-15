@@ -36,7 +36,7 @@ $$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f
     
 - Second, approximate this integral by a single sample, namely:
 
-$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \quad h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I) \tag{1} \label{eq:approx}$$
+$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \quad h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
 
 **NB:** In the context of training with stochastic gradient descent, this may not be considered an oversimplification!
 
@@ -60,7 +60,7 @@ This transformation effectively makes the sample $$h$$ a function of $$x$$ and t
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/Screenshot 2024-11-14 172648.jpg" width="80%" height="100%">
 </p>
 
-
+Now going back to the second approximation, we have that 
 ### References 
 
 [^1]: Kingma, D., Welling, M. (2019). *An Introduction to Variational Autoencoders*. [arXiv:1906.02691](https://arxiv.org/abs/1906.02691)
