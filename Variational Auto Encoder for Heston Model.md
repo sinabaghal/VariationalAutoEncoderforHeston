@@ -32,7 +32,7 @@ $$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)
 
 where the mean $$\mu_n$$ and variance $$\sigma_n$$ are obtained through the encoder. Therefore, 
 
-$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I) \, dh$$
+$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I) dh$$
     
 - Second, approximate this integral by a single sample, namely:
 
