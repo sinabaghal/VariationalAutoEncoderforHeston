@@ -127,6 +127,68 @@ To explore the generative capabilities of my Variational Autoencoder (VAE), I cr
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/vaefit.png" width="80%" height="100%">
 </p>
 
+
+#### Fit a random surface using the VAE model
+
+```python
+kappa_min, kappa_max = 0.1, 0.9
+eta_min, eta_max = 0.05**2, 0.25**2
+rho_min, rho_max = -0.9, -0.1
+sigma_min, sigma_max = 0.1, 0.5
+
+
+kappa_random = torch.empty(1).uniform_(kappa_min, kappa_max).to(device)
+eta_random = torch.empty(1).uniform_(eta_min, eta_max).to(device)
+rho_random = torch.empty(1).uniform_(rho_min, rho_max).to(device)
+sigma_random = torch.empty(1).uniform_(sigma_min, sigma_max).to(device)
+
+random_prices = pricing(kappa_random,eta_random,rho_random,sigma_random)
+random_prices = (random_prices*random_prices).mul(random_prices.index, axis=0)
+random_array = (random_prices*no_nan_mask_df).replace(0, np.nan).values
+random_tensor = torch.tensor(random_array[~np.isnan(random_array)]).to(device)
+
+class GDModel(nn.Module):
+    def __init__(self):
+        super(GDModel, self).__init__()
+        self.linear = nn.Linear(1,latent_dims).to(torch.float64)
+        
+    def forward(self):
+        # import pdb; pdb.set_trace()
+        out = self.linear(torch.tensor([1.0]).to(torch.float64).to(device))
+        return out
+
+vae.eval()
+best_loss = float('inf')
+epoch = 0
+
+gdmodel = GDModel().to(device)
+optimizer = optim.Adam(gdmodel.parameters(), lr=0.1)
+scheduler_args = {'mode':'min', 'factor':0.9, 'patience':100, 'threshold':0.05}
+scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, **scheduler_args)
+
+losses = []
+num_epochs  = 50000
+with torch.no_grad():
+    fit_vae = vae.decoder(gdmodel())
+while epoch < num_epochs:
+
+    optimizer.zero_grad()
+    loss = F.mse_loss(vae.decoder(gdmodel()),random_tensor)
+    loss.backward()
+    optimizer.step()
+    # scheduler.step(loss)
+    if loss < best_loss: 
+        best_loss = loss
+        print(best_loss.item())
+        with torch.no_grad():
+            fit_vae = vae.decoder(gdmodel())
+    cur_lr = optimizer.state_dict()["param_groups"][0]["lr"]
+    losses.append(loss.item())
+    epoch += 1
+
+## plot(fit_vae & random_tensor)
+```
+
 ### References 
 
 [^1]: Kingma, D., Welling, M. (2019). *An Introduction to Variational Autoencoders*. [arXiv:1906.02691](https://arxiv.org/abs/1906.02691)
