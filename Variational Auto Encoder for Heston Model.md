@@ -27,15 +27,15 @@ In order to compute this integral, we make two simplifications:
 
 - First, assume that
 
-$$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
+$$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_h(x_n; W_f), \sigma_h^2(x_n; W_f) I)$$
 
-where the mean $$\mu_n$$ and variance $$\sigma_n$$ are obtained through the encoder. Therefore, 
+where the mean $$\mu_h$$ and variance $$\sigma_h$$ are obtained through the encoder. Therefore, 
 
-$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I) dh$$
+$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_h(x_n; W_f), \sigma_h^2(x_n; W_f) I) dh$$
     
 - Second, approximate this integral by a single sample, namely:
 
-$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \quad h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
+$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \quad h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_h^2(x_n; W_f) I)$$
 
 **NB:** In the context of training with stochastic gradient descent, this may not be considered an oversimplification!
 
