@@ -130,6 +130,9 @@ We next evaluate the generalization capabilities of our VAE model. To achieve th
 
 
 ```python
+
+### Generate a random Heston Volatility Surface
+
 kappa_min, kappa_max = 0.1, 0.9
 eta_min, eta_max = 0.05**2, 0.25**2
 rho_min, rho_max = -0.9, -0.1
@@ -146,6 +149,16 @@ random_prices = (random_prices*random_prices).mul(random_prices.index, axis=0)
 random_array = (random_prices*no_nan_mask_df).replace(0, np.nan).values
 random_tensor = torch.tensor(random_array[~np.isnan(random_array)]).to(device)
 
+
+### Load VAE model
+
+hidden_sizes_encoder = [32, 64,128]
+hidden_sizes_decoder = [dim for dim in reversed(hidden_sizes_encoder)]
+latent_dims = 4
+vae = VariationalAutoencoder(hidden_sizes_encoder, hidden_sizes_decoder, latent_dims).to(device)
+vae.load_state_dict(torch.load('autoencoder.pth')) 
+
+### Track gradients when search through the latent space 
 class GDModel(nn.Module):
     def __init__(self):
         super(GDModel, self).__init__()
