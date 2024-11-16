@@ -108,9 +108,18 @@ Two important notes are in order:
 - $$\frac{1}{m}\sum_n \Vert x_n-\tilde{x}_n\Vert^2$$ grows with $$\text{dim}(x_n)$$. In other words, there is no normalization factor to take into account the input data point's dimension.  
 - $$\mu_n$$ and $$\sigma_n$$ are functions of $$W_f$$, the encoder's weights. It is problem-specific how to choose the specifics of these functions. For example, in this project, we ask the network to learn $$\log \sigma$$. In other words, $$\log \sigma = f_\sigma(W_f)$$ for some function of $$W_f$$.
 
-### VAE for Heston 
+### Generative VAE model for Heston Model
+
+#### Random Walk
+
+To explore the generative capabilities of my Variational Autoencoder (VAE), I create a random walk in $$R^{latent dim}$$. This random walk is generated using Gaussian steps with their length re-scaled to $$dt=0.2$$. The resulting random walk serves as the input trajectory to the VAE. The two GIFs below display a walk of size 1000. The original GIF was not uploaded in its entirety due to its large size, so it has been split into two parts.
+
+- Random Walk: Step 1 to 500
 
 ![](part1.gif)
+
+- Random Walk: Step 501 to 1000
+- 
 ![](part2.gif)
 
 
