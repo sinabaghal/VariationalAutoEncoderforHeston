@@ -118,9 +118,126 @@ $$
 
 #### Training the VAE model 
 
+Python code below shows how the VAE module is constructed!
+
+```python
+class Encoder(nn.Module):
+
+    def __init__(self, hidden_sizes_encoder, latent_dims):
+
+        super(Encoder, self).__init__()
+        layers = []
+        in_size = training_data.shape[1]
+        
+
+        for hidden_size in hidden_sizes_encoder:
+            
+            layers.append(nn.Linear(in_size, hidden_size).to(torch.float64))
+            layers.append(nn.LeakyReLU())
+            in_size = hidden_size
+
+        self.layer_mu = nn.Linear(in_size, latent_dims).to(torch.float64)
+        self.layer_var = nn.Linear(in_size, latent_dims).to(torch.float64)
+        self.network = nn.Sequential(*layers)
+
+    def forward(self, x):
+
+        x = self.network(x)
+        mu =  self.layer_mu(x)
+        log_var = self.layer_var(x)
+        std = torch.exp(0.5 * log_var)
+        eps = torch.randn_like(std)
+
+        z = eps * std + mu #torch.Size([625, 4])
+        self.kl = 0.5*(mu ** 2 + log_var.exp()-1 - log_var).mean()
+
+        return z
+
+class Decoder(nn.Module):
+
+    def __init__(self, hidden_sizes_decoder, latent_dims):
+        super(Decoder, self).__init__()
+
+        layers = []
+        in_size = latent_dims
+        layers.append(nn.Linear(in_size, hidden_sizes_decoder[0]).to(torch.float64))
+
+        for i in range(len(hidden_sizes_decoder)-1):
+            
+            dim_1, dim_2 = hidden_sizes_decoder[i],hidden_sizes_decoder[i+1]
+            layers.append(nn.Linear(dim_1, dim_2).to(torch.float64))
+            layers.append(nn.LeakyReLU())
+
+        layers.append(nn.Linear(hidden_sizes_decoder[-1], training_data.shape[1]).to(torch.float64))
+        layers.append(nn.LeakyReLU())
+
+        self.network = nn.Sequential(*layers)
+
+    def forward(self, x):
+        return self.network(x)    
+    
+    
+class VariationalAutoencoder(nn.Module):
+
+    def __init__(self, hidden_sizes_encoder, hidden_sizes_decoder, latent_dims):
+
+        super(VariationalAutoencoder, self).__init__()
+        self.encoder = Encoder(hidden_sizes_encoder, latent_dims)
+        self.decoder = Decoder(hidden_sizes_decoder, latent_dims)
+
+    def forward(self, x):
+        z = self.encoder(x)
+        return self.decoder(z) 
+    
+print_epoch = 1000
+print(f'Print every {print_epoch} epochs!')
+def train(autoencoder, epochs=print_epoch*10000):
+
+    best_loss = float('inf')
+    kl_saved = float('inf')
+    mse_saved = float('inf')
+    header_message = f"{'Epoch':>5} | {'Cur LR':>20} | {'Cur MSE':>20} | {'Cur KL':>20} | {'Saved KL':>20} | {'Saved MSE':>20} | {'KL Reg':>20}"
+        
+    print(header_message)    
+    opt = torch.optim.Adam(autoencoder.parameters(), lr=0.01,weight_decay=0.01)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(opt, mode='min', factor=0.9, patience=3*print_epoch, min_lr=1e-6)
+
+    epoch = 0
+    beta = 1
+
+    while best_loss > 1e-5 and epoch <epochs:
+
+        opt.zero_grad() 
+        iv_stacked_hat = autoencoder(training_data)
+        loss_mse_ = F.mse_loss(iv_stacked_hat, training_data)
+        loss_mse =  loss_mse_*training_data.shape[1]
+        kl = autoencoder.encoder.kl
+        loss = loss_mse+beta*kl
+        loss.backward()
+        opt.step()
+        cur_lr = opt.state_dict()["param_groups"][0]["lr"]
+        total_loss =  loss_mse + beta*kl
+        
+        scheduler.step(total_loss)
+        if best_loss > loss.item():
+
+            best_loss = loss.item()
+            mse_saved = loss_mse_.item()
+            kl_saved = kl.item()
+            torch.save(autoencoder.state_dict(), 'autoencoder.pth')
+
+        if epoch % print_epoch == 0: 
+            print(f"{int(epoch/print_epoch):>5} | {cur_lr:>20.10f} | {loss_mse_.item():>20.10f} | {kl.item():>20.10f} | {kl_saved:>20.10f} | {mse_saved:>20.10f} | {beta:>20.10f}")
+        
+        epoch = epoch + 1
+
+    return autoencoder
+```
+
 <p align="center">
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/logMSElogKL.png" width="80%" height="100%">
 </p>
+
 
 
 
