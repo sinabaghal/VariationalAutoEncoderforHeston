@@ -128,26 +128,20 @@ class Encoder(nn.Module):
         super(Encoder, self).__init__()
         layers = []
         in_size = training_data.shape[1]
-        
-
         for hidden_size in hidden_sizes_encoder:
-            
             layers.append(nn.Linear(in_size, hidden_size).to(torch.float64))
             layers.append(nn.LeakyReLU())
             in_size = hidden_size
-
         self.layer_mu = nn.Linear(in_size, latent_dims).to(torch.float64)
         self.layer_var = nn.Linear(in_size, latent_dims).to(torch.float64)
         self.network = nn.Sequential(*layers)
 
     def forward(self, x):
-
         x = self.network(x)
         mu =  self.layer_mu(x)
         log_var = self.layer_var(x)
         std = torch.exp(0.5 * log_var)
         eps = torch.randn_like(std)
-
         z = eps * std + mu #torch.Size([625, 4])
         self.kl = 0.5*(mu ** 2 + log_var.exp()-1 - log_var).mean()
 
@@ -157,7 +151,6 @@ class Decoder(nn.Module):
 
     def __init__(self, hidden_sizes_decoder, latent_dims):
         super(Decoder, self).__init__()
-
         layers = []
         in_size = latent_dims
         layers.append(nn.Linear(in_size, hidden_sizes_decoder[0]).to(torch.float64))
@@ -201,10 +194,8 @@ def train(autoencoder, epochs=print_epoch*10000):
     print(header_message)    
     opt = torch.optim.Adam(autoencoder.parameters(), lr=0.01,weight_decay=0.01)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(opt, mode='min', factor=0.9, patience=3*print_epoch, min_lr=1e-6)
-
     epoch = 0
     beta = 1
-
     while best_loss > 1e-5 and epoch <epochs:
 
         opt.zero_grad() 
@@ -217,9 +208,9 @@ def train(autoencoder, epochs=print_epoch*10000):
         opt.step()
         cur_lr = opt.state_dict()["param_groups"][0]["lr"]
         total_loss =  loss_mse + beta*kl
-        
         scheduler.step(total_loss)
-        if best_loss > loss.item():
+
+     if best_loss > loss.item():
 
             best_loss = loss.item()
             mse_saved = loss_mse_.item()
@@ -230,7 +221,6 @@ def train(autoencoder, epochs=print_epoch*10000):
             print(f"{int(epoch/print_epoch):>5} | {cur_lr:>20.10f} | {loss_mse_.item():>20.10f} | {kl.item():>20.10f} | {kl_saved:>20.10f} | {mse_saved:>20.10f} | {beta:>20.10f}")
         
         epoch = epoch + 1
-
     return autoencoder
 ```
 
