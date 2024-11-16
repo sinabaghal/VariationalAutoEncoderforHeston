@@ -63,13 +63,13 @@ This transformation effectively makes the sample $$h$$ a function of $$x$$ and t
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/Screenshot 2024-11-14 172648.jpg" width="80%" height="100%">
 </p>
 
-Now, returning to the second approximation and recalling that $$Pr(x_n; W_f, W_g)$$ represents the probability of reconstructing $$x_n$$, we find that:
+Now, returning to the second approximation (recal that $$Pr(x_n; W_f, W_g)$$ represents the probability of reconstructing $$x_n$$), we have that:
 
 $$
 \log Pr(x_n; W_f, W_g) \approx -\frac{1}{2}\Vert x_n-\tilde{x}_n\Vert^2
 $$
 
-Moreover, recall that the KL divergence between $$N(\mu, \sigma^2)$$ and $$N(0, 1)$$ is given by:
+Moreover, it is noted that the KL divergence between $$N(\mu, \sigma^2)$$ and $$N(0, 1)$$ is given by:
 
 $$
 D_{\text{KL}} \big( N(\mu, \sigma^2) \parallel N(0, 1) \big) = \frac{1}{2} \left( \sigma^2 + \mu^2 - 1 - \ln(\sigma^2) \right)
