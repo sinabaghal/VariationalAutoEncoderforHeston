@@ -14,13 +14,15 @@ $$
 
 | Symbol      | Description                                                         |
 |-------------|---------------------------------------------------------------------|
-| $$S_t$$     | The asset price at time $$t$$.                                      |
-| $$\mu$$     | The drift rate (expected return).                                   |
-| $$v_t$$     | The variance at time $$t$$.                                        |
-| $$\kappa$$  | The rate of mean reversion.                                         |
-| $$\theta$$  | The long-term variance (mean reversion level).                      |
-| $$\sigma$$  | The volatility of volatility (how much $$v_t$$ fluctuates).         |
+| $$S_t$$     | The asset price at time $$t$$                                      |
+| $$\mu$$     | The drift rate  _i.e.,_ expected return                                   |
+| $$v_t$$     | The variance at time $$t$$                                        |
+| $$\kappa$$  | The rate of mean reversion                                         |
+| $$\theta$$  | The long-term variance _i.e.,_ mean reversion level                      |
+| $$\sigma$$  | The volatility of volatility  _i.e.,_ how much $$v_t$$ fluctuates         |
 | $$W_t^S, W_t^v$$   |Wiener processes where $$d W_t^S d W_t^v = \rho dt$$                          |
+
+
 
 ### Variational Autoencoders 
 
