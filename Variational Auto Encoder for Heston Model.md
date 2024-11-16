@@ -27,15 +27,15 @@ In order to compute this integral, we make two simplifications:
 
 - First, assume that
 
-$$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_h(x_n; W_f), \sigma_h^2(x_n; W_f) I)$$
+$$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
 
-where the mean $$\mu_h$$ and variance $$\sigma_h$$ are obtained through the encoder. Therefore, 
+where the mean $$\mu_n$$ and variance $$\sigma_n$$ are obtained through the encoder. Therefore, 
 
-$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_h(x_n; W_f), \sigma_h^2(x_n; W_f) I) dh$$
+$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I) dh$$
     
 - Second, approximate this integral by a single sample, namely:
 
-$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \quad h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_h^2(x_n; W_f) I)$$
+$$\Pr(x_n; W_f, W_g) \approx \Pr(x_n \mid h_n; W_g)\quad \text{where} \quad h_n \sim \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
 
 **NB:** In the context of training with stochastic gradient descent, this may not be considered an oversimplification!
 
@@ -48,10 +48,10 @@ The figure below illustrates the network architecture.
 With this architecture, we face a challenge when trying to backpropagate through the stochastic sampling step. The sampling introduces randomness, which disrupts the flow of gradients and makes the training infeasible. To address this, VAEs use a technique called the **reparameterization**: Instead of sampling directly from the distribution $$h \sim q(h|x)$$, we rewrite $$h$$ as a deterministic function of the encoder’s output parameters and an independent random variable $$\zeta \sim \mathcal{N}(0,I)$$. The reparameterization trick transforms the sampling as follows:
 
 $$
-h = \mu_h(x) + \sigma_h(x) \cdot \zeta \quad \text{where} \quad \zeta \sim \mathcal{N}(0,I)
+h = \mu_n(x) + \sigma_n(x) \cdot \zeta \quad \text{where} \quad \zeta \sim \mathcal{N}(0,I)
 $$
 
-Here $$\mu_h(x)$$ and $$\sigma_h(x)$$ are the mean and standard deviation of the latent distribution $$q(h|x)$$.
+Here $$\mu_n(x)$$ and $$\sigma_n(x)$$ are the mean and standard deviation of the latent distribution $$q(h|x)$$.
 
 This transformation effectively makes the sample $$h$$ a function of $$x$$ and the learned parameters $$W_f$$, with the randomness isolated in $$\zeta$$. Now, $$h$$ can be treated as a deterministic input to the decoder network during backpropagation, allowing us to compute gradients with respect to the encoder parameters. The resulting network looks as follows:
 
@@ -74,13 +74,13 @@ $$
 Putting pieces together and scaling by 2, we derive the following loss function for training our VAE:
 
 $$
-\min \frac{1}{m}\sum_m \Vert x_n-\tilde{x}_n\Vert^2 + \frac{\beta}{m} \cdot  \left( \sigma_h^2 + \mu_h^2 - 1 - \ln(\sigma_h^2) \right)
+\min \frac{1}{m}\sum_m \Vert x_n-\tilde{x}_n\Vert^2 + \frac{\beta}{m} \cdot  \left( \sigma_n^2 + \mu_n^2 - 1 - \ln(\sigma_n^2) \right)
 $$
 
 Two important notes are in order:
 
 - $$\frac{1}{m}\sum_m \Vert x_n-\tilde{x}_n\Vert^2$$ grows with $$\text{dim}(x_n)$$. In other words, there is no normalization factor to take into account the input data point's dimension.  
-- $$\mu_h$$ and $$\sigma_h$$ are functions of $$W_f$$, the encoder's weights. It is problem-specific how to choose the specifics of these functions. For example, in this project, we ask the network to learn $$\log(\sigma)$$. In other words, $$\log \sigma = f_\sigma(W_f)$$ for some function of $$W_f$$.
+- $$\mu_n$$ and $$\sigma_n$$ are functions of $$W_f$$, the encoder's weights. It is problem-specific how to choose the specifics of these functions. For example, in this project, we ask the network to learn $$\log(\sigma)$$. In other words, $$\log \sigma = f_\sigma(W_f)$$ for some function of $$W_f$$.
 
 ### References 
 
