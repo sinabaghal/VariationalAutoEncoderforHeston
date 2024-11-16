@@ -110,7 +110,7 @@ Two important notes are in order:
 
 ### Generative VAE model for Heston Model
 
-#### Random Walk
+#### 1. Random Walk
 
 To explore the generative capabilities of my Variational Autoencoder (VAE), I create a random walk in $$R^{latent dim}$$. This random walk is generated using Gaussian steps with their length re-scaled to $$dt=0.2$$. The resulting random walk serves as the input trajectory to the VAE. The two GIFs below display a walk of size 1000. The original GIF was not uploaded in its entirety due to its large size, so it has been split into two parts.
 
@@ -122,7 +122,7 @@ To explore the generative capabilities of my Variational Autoencoder (VAE), I cr
 
 ![](part2.gif)
 
-#### Fit a random surface using the VAE model
+#### 2. Fit a random surface using the VAE model
 
 We next evaluate the generalization capabilities of our VAE model. To achieve this, we generate a random set of parameters and compute option prices through Monte Carlo simulations. Using these prices, we derive the implied volatility surface with the help of the QuantLib library. Subsequently, we employ the Adam optimizer to identify a point in the latent space that, when processed through the VAE, generates a volatility surface closely approximating the target surface, as measured by the mean squared error (MSE) loss. The Python snippet below shows the process.
 
