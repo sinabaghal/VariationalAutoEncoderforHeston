@@ -27,7 +27,7 @@ In order to compute this integral, we make two simplifications:
 
 - First, assume that
 
-$$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)$$
+$$\Pr(h \mid x_n; W_f) = \mathcal{N}(h; \mu_n(x_n; W_f), \sigma_n^2(x_n; W_f) I)=\frac{1}{\sqrt{2\pi}}\cdot e^{-\frac{\Vert h-\mu_n\Vert^2}{2\sigma_n^2}}$$
 
 where the mean $$\mu_n$$ and variance $$\sigma_n$$ are obtained through the encoder. Therefore, 
 
