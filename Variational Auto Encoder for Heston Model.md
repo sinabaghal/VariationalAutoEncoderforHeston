@@ -22,7 +22,7 @@ $$
 
 We have 
 
-$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \Pr(h \mid x_n; W_f) \, dh$$
+$$\Pr(x_n; W_f, W_g) = \int_h \Pr(x_n \mid h; W_g) \Pr(h \mid x_n; W_f) dh$$
 
 In order to compute this integral, we make two simplifications:  
 
