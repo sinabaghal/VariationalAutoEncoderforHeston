@@ -118,6 +118,10 @@ $$
 
 #### Training the VAE model 
 
+<p align="center">
+<img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/logMSElogKL.png" width="80%" height="100%">
+</p>
+
 
 
 #### Random Walk
