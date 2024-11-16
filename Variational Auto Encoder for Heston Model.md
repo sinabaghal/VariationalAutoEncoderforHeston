@@ -74,12 +74,12 @@ $$
 Putting pieces together and scaling by 2, we derive the following loss function for training our VAE:
 
 $$
-\min \frac{1}{m}\sum_m \Vert x_n-\tilde{x}_n\Vert^2 + \frac{\beta}{m} \cdot  \left( \sigma_n^2 + \mu_n^2 - 1 - \ln(\sigma_n^2) \right)
+\min \frac{1}{m}\sum_m \Vert x_n-\tilde{x}_n\Vert^2 + \frac{\beta}{m} \cdot  \sum_n\left( \sigma_n^2 + \mu_n^2 - 1 - \ln(\sigma_n^2) \right)
 $$
 
 Two important notes are in order:
 
-- $$\frac{1}{m}\sum_m \Vert x_n-\tilde{x}_n\Vert^2$$ grows with $$\text{dim}(x_n)$$. In other words, there is no normalization factor to take into account the input data point's dimension.  
+- $$\frac{1}{m}\sum_n \Vert x_n-\tilde{x}_n\Vert^2$$ grows with $$\text{dim}(x_n)$$. In other words, there is no normalization factor to take into account the input data point's dimension.  
 - $$\mu_n$$ and $$\sigma_n$$ are functions of $$W_f$$, the encoder's weights. It is problem-specific how to choose the specifics of these functions. For example, in this project, we ask the network to learn $$\log(\sigma)$$. In other words, $$\log \sigma = f_\sigma(W_f)$$ for some function of $$W_f$$.
 
 ### References 
