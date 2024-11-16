@@ -189,7 +189,7 @@ while epoch < num_epochs:
 ## plot(fit_vae & random_tensor)
 ```
 
-Figure below is an example of VAE's capablity of fitting a random surface.
+Figure below is an example of VAE's capablity of fitting a random surface. The 'o' marker represents the VAE's output.
 
 <p align="center">
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/vaefit.png" width="80%" height="100%">
