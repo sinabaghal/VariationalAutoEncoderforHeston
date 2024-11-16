@@ -13,7 +13,7 @@ Variational autoencoders (VAEs) belong to a broader family of probabilistic auto
 
 Probabilistic autoencoders learn to model the distribution of the data in the latent space enabling them to generate new examples by sampling from this distribution. This generative capability makes probabilistic autoencoders especially powerful. The key idea in a VAEs is to ensure that the encoder distribution over the latent space is close to a simple, fixed distribution, typically a standard normal distribution $$N(0, I)$$. As a result, to generate new data points, we can easily sample new latent representations from $$N(0, I)$$ and pass them through the decoder.
 
-So we have two simultaneous goals. First, to reconstruct $$x$$ with high probability. Second, to ensure that $$\Pr(h \mid x; W_f)$$ is close to $$\mathcal{N}(0, I)$$. This leads to the following objective function ($$x_1,\cdots,x_m$$ is the training dataset):
+So we have two simultaneous goals. First, to reconstruct $$x$$ with high probability. Second, to ensure that $$\Pr(h \mid x; W_f)$$ is close to $$\mathcal{N}(0, I)$$. Denoting the training dataset by $$\{x_1,\cdots,x_m\}$$, this leads to the following objective function:
 
 $$
 \max_{W} \sum_{m} \log \Pr(x_n; W_f, W_g) - \beta \text{KL}\left(\Pr(h \mid x_n; W_f) \| \mathcal{N}(h; 0, I)\right)
@@ -74,7 +74,7 @@ $$
 Putting pieces together and scaling by 2, we derive the following loss function for training our VAE:
 
 $$
-\min \frac{1}{m}\sum_m \Vert x_n-\tilde{x}_n\Vert^2 + \frac{\beta}{m} \cdot  \sum_n\left( \sigma_n^2 + \mu_n^2 - 1 - \ln(\sigma_n^2) \right)
+\min \frac{1}{m}\sum_m \Vert x_n-\tilde{x}_n\Vert^2 + \frac{\beta}{m} \cdot  \sum_m\left( \sigma_n^2 + \mu_n^2 - 1 - \ln(\sigma_n^2) \right)
 $$
 
 Two important notes are in order:
