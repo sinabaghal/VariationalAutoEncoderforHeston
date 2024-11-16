@@ -108,13 +108,8 @@ $$
 | $$W_t^S, W_t^v$$   |Wiener processes where $$d W_t^S d W_t^v = \rho dt$$                          |
 
 
-
-### Generative VAE model for Heston Model
-
-#### Training Data 
-
-## Pricing using Monte Carlo simulation
-
+### Training Data 
+### Pricing using Monte Carlo simulation
 
 #### Training the VAE model 
 
@@ -228,6 +223,7 @@ def train(autoencoder, epochs=print_epoch*10000):
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/logMSElogKL.png" width="80%" height="100%">
 </p>
 
+### Generative VAE model for Heston Model
 
 
 
