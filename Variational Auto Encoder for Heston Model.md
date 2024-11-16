@@ -119,16 +119,13 @@ To explore the generative capabilities of my Variational Autoencoder (VAE), I cr
 ![](part1.gif)
 
 - Random Walk: Step 501 to 1000
-- 
+
 ![](part2.gif)
 
-
-<p align="center">
-<img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/vaefit.png" width="80%" height="100%">
-</p>
-
-
 #### Fit a random surface using the VAE model
+
+We next evaluate the generalization capabilities of our VAE model. To achieve this, we generate a random set of parameters and compute option prices through Monte Carlo simulations. Using these prices, we derive the implied volatility surface with the help of the QuantLib library. Subsequently, we employ the Adam optimizer to identify a point in the latent space that, when processed through the VAE, generates a volatility surface closely approximating the target surface, as measured by the mean squared error (MSE) loss. The Python snippet below shows the process.
+
 
 ```python
 kappa_min, kappa_max = 0.1, 0.9
@@ -170,6 +167,7 @@ losses = []
 num_epochs  = 50000
 with torch.no_grad():
     fit_vae = vae.decoder(gdmodel())
+
 while epoch < num_epochs:
 
     optimizer.zero_grad()
@@ -188,6 +186,10 @@ while epoch < num_epochs:
 
 ## plot(fit_vae & random_tensor)
 ```
+
+<p align="center">
+<img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/vaefit.png" width="80%" height="100%">
+</p>
 
 ### References 
 
