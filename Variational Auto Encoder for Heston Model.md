@@ -11,7 +11,7 @@ Variational autoencoders (VAEs) belong to a broader family of probabilistic auto
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/Screenshot 2024-11-14 152106.jpg" width="80%" height="100%">
 </p>
 
-Probabilistic autoencoders learn to model the distribution of the data in the latent space enabling them to generate new examples by sampling from this distribution. This generative capability makes probabilistic autoencoders especially powerful. The key idea in a VAEs is to ensure that the encoder distribution over the latent space is close to a simple, fixed distribution, typically a standard normal distribution $$N(0, I)$$. By making the encoder output close to $$N(0, I)$$, we can easily sample new latent representations from standard normal distribution and pass them through the decoder to generate new data points. 
+Probabilistic autoencoders learn to model the distribution of the data in the latent space enabling them to generate new examples by sampling from this distribution. This generative capability makes probabilistic autoencoders especially powerful. The key idea in a VAEs is to ensure that the encoder distribution over the latent space is close to a simple, fixed distribution, typically a standard normal distribution $$N(0, I)$$. As a result, to generate new data points, we can easily sample new latent representations from $$N(0, I)$$ and pass them through the decoder.
 
 So we have two simultaneous goals. First, to reconstruct $$x$$ with high probability. Second, to ensure that $$\Pr(h \mid x; W_f)$$ is close to $$\mathcal{N}(0, I)$$. This leads to the following objective function ($$x_1,\cdots,x_m$$ is the training dataset):
 
