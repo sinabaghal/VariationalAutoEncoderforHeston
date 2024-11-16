@@ -2,28 +2,6 @@
 
 In this project, I focus on training a Variational Autoencoder (VAE), a generative model, to produce Heston volatility surfaces. The Heston model is a widely used stochastic volatility model in finance, capable of capturing the complex dynamics of option prices. Once trained, this VAE can generate new volatility surfaces, which could be useful for various financial applications such as risk management, pricing exotic derivatives, etc. This project emphasizes the power of generative AI in advancing financial modeling.
 
-Heston model consists of two coupled stochastic differential equations (SDEs):
-
-$$
-\begin{align*}
-dS_t &= S_t \mu dt + S_t \sqrt{v_t} dW_t^S\\
-dv_t &= \kappa (\theta - v_t) dt + \sigma \sqrt{v_t} dW_t^v
-\end{align*}
-$$
-
-
-| Symbol      | Description                                                         |
-|-------------|---------------------------------------------------------------------|
-| $$S_t$$     | The asset price at time $$t$$                                      |
-| $$\mu$$     | The drift rate  _i.e.,_ expected return                                   |
-| $$v_t$$     | The variance at time $$t$$                                        |
-| $$\kappa$$  | The rate of mean reversion                                         |
-| $$\theta$$  | The long-term variance _i.e.,_ mean reversion level                      |
-| $$\sigma$$  | The volatility of volatility  _i.e.,_ how much $$v_t$$ fluctuates         |
-| $$W_t^S, W_t^v$$   |Wiener processes where $$d W_t^S d W_t^v = \rho dt$$                          |
-
-
-
 ### Variational Autoencoders 
 
 This section provides a brief overview of variational autoencoders (VAEs). For a deeper understanding, refer to [^1]. Video lectures (20 & 21) [^2] are also an excellent resource for learning the core concepts of VAEs.
@@ -108,9 +86,41 @@ Two important notes are in order:
 - $$\frac{1}{m}\sum_n \Vert x_n-\tilde{x}_n\Vert^2$$ grows with $$\text{dim}(x_n)$$. In other words, there is no normalization factor to take into account the input data point's dimension.  
 - $$\mu_n$$ and $$\sigma_n$$ are functions of $$W_f$$, the encoder's weights. It is problem-specific how to choose the specifics of these functions. For example, in this project, we ask the network to learn $$\log \sigma$$. In other words, $$\log \sigma = f_\sigma(W_f)$$ for some function of $$W_f$$.
 
+### Heston Model
+Heston model consists of two coupled stochastic differential equations (SDEs):
+
+$$
+\begin{align*}
+dS_t &= S_t \mu dt + S_t \sqrt{v_t} dW_t^S\\
+dv_t &= \kappa (\theta - v_t) dt + \sigma \sqrt{v_t} dW_t^v
+\end{align*}
+$$
+
+
+| Symbol      | Description                                                         |
+|-------------|---------------------------------------------------------------------|
+| $$S_t$$     | The asset price at time $$t$$                                      |
+| $$\mu$$     | The drift rate  _i.e.,_ expected return                                   |
+| $$v_t$$     | The variance at time $$t$$                                        |
+| $$\kappa$$  | The rate of mean reversion                                         |
+| $$\theta$$  | The long-term variance _i.e.,_ mean reversion level                      |
+| $$\sigma$$  | The volatility of volatility  _i.e.,_ how much $$v_t$$ fluctuates         |
+| $$W_t^S, W_t^v$$   |Wiener processes where $$d W_t^S d W_t^v = \rho dt$$                          |
+
+
+
 ### Generative VAE model for Heston Model
 
-#### 1. Random Walk
+#### Training Data 
+
+## Pricing using Monte Carlo simulation
+
+
+#### Training the VAE model 
+
+
+
+#### Random Walk
 
 To explore the generative capabilities of my Variational Autoencoder (VAE), I create a random walk in $$R^{\text{latent dim}}$$. This random walk is generated using Gaussian steps with their length re-scaled to $$dt=0.2$$. The resulting random walk serves as the input trajectory to the VAE. The two GIFs below display a walk of size 1000. The original GIF was not uploaded in its entirety due to its large size, so it has been split into two parts. 
 
