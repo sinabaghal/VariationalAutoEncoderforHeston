@@ -74,7 +74,7 @@ $$
 Putting pieces together and scaling by 2, we derive the following loss function for training our VAE:
 
 $$
-\min \frac{1}{m}\sum_m \Vert x_n-\tilde{x}_n\Vert^2 + \frac{\beta}{m} \cdot  \sum_m\left( \sigma_n^2 + \mu_n^2 - 1 - \ln(\sigma_n^2) \right)
+\min \frac{1}{m}\sum_n \Vert x_n-\tilde{x}_n\Vert^2 + \frac{\beta}{m} \cdot  \sum_n\left( \sigma_n^2 + \mu_n^2 - 1 - \ln(\sigma_n^2) \right)
 $$
 
 Two important notes are in order:
