@@ -226,9 +226,9 @@ def train(autoencoder, epochs=print_epoch*10000):
 
 ### Generative VAE model for Heston Model
 
-Once the VAE model is trained, we utilize it to generate new volatility surfaces in two distinct ways:
+Once the VAE model is trained, we use it to generate new volatility surfaces in two different ways:
 
-- Random walk in laten space: Create a family of Heston volatility surfaces by performing a random walk in the latent space of the Heston model. 
+- Random walk in laten space: Create a family of Heston volatility surfaces by using a random walk in the latent space of the Heston model. 
 - Fitting randomly generated surfaces: Test the VAE's capability to generate a volatility surface that closely fits a randomly generated target surface. This involves optimizing within the latent space to minimize the difference between the VAE-generated surface and the target surface.
 
 The next two subsections provide detailed explanations of these approaches.
