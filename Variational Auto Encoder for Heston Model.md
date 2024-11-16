@@ -2,6 +2,26 @@
 
 In this project, I focus on training a Variational Autoencoder (VAE), a generative model, to produce Heston volatility surfaces. The Heston model is a widely used stochastic volatility model in finance, capable of capturing the complex dynamics of option prices. Once trained, this VAE can generate new volatility surfaces, which could be useful for various financial applications such as risk management, pricing exotic derivatives, etc. This project emphasizes the power of generative AI in advancing financial modeling.
 
+Heston model consists of two coupled stochastic differential equations (SDEs):
+
+$$
+\begin{align*}
+dS_t &= S_t \mu dt + S_t \sqrt{v_t} dW_t^S\\
+dv_t &= \kappa (\theta - v_t) dt + \sigma \sqrt{v_t} dW_t^v
+\end{align*}
+$$
+
+
+| Symbol      | Description                                                         |
+|-------------|---------------------------------------------------------------------|
+| $$S_t$$     | The asset price at time $$t$$.                                      |
+| $$\mu$$     | The drift rate (expected return).                                   |
+| $$v_t$$     | The variance at time $$t$$.                                        |
+| $$\kappa$$  | The rate of mean reversion.                                         |
+| $$\theta$$  | The long-term variance (mean reversion level).                      |
+| $$\sigma$$  | The volatility of volatility (how much $$v_t$$ fluctuates).         |
+| $$W_t^S, W_t^v$$   |Wiener processes where $$d W_t^S d W_t^v = \rho dt$$                          |
+
 ### Variational Autoencoders 
 
 This section provides a brief overview of variational autoencoders (VAEs). For a deeper understanding, refer to [^1]. Video lectures (20 & 21) [^2] are also an excellent resource for learning the core concepts of VAEs.
