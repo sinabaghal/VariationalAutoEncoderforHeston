@@ -114,6 +114,9 @@ Two important notes are in order:
 ![](part2.gif)
 
 
+<p align="center">
+<img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/vaefit.png" width="80%" height="100%">
+</p>
 
 ### References 
 
