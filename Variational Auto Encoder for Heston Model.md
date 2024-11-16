@@ -158,7 +158,8 @@ latent_dims = 4
 vae = VariationalAutoencoder(hidden_sizes_encoder, hidden_sizes_decoder, latent_dims).to(device)
 vae.load_state_dict(torch.load('autoencoder.pth')) 
 
-### Track gradients when search through the latent space 
+### Track gradients when search through the latent space
+
 class GDModel(nn.Module):
     def __init__(self):
         super(GDModel, self).__init__()
@@ -172,6 +173,8 @@ class GDModel(nn.Module):
 vae.eval()
 best_loss = float('inf')
 epoch = 0
+
+### Using Adam to find a point in the latent space that produces a similar volatility surface when passed through the VAE
 
 gdmodel = GDModel().to(device)
 optimizer = optim.Adam(gdmodel.parameters(), lr=0.1)
