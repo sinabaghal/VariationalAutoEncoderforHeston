@@ -130,6 +130,7 @@ We next evaluate the generalization capabilities of our VAE model. To achieve th
 
 
 ```python
+from gen_training import pricing
 
 ### Generate a random Heston Volatility Surface
 
