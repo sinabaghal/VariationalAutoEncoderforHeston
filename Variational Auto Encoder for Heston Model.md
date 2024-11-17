@@ -144,12 +144,15 @@ $$
 
 It is emphasized that this construction ensures that more log-moneyness values are concentrated around at-the-money (ATM) levels.
 
+Next, we define a set of values for the Heston parameters. We fix v_0 = 0.05, r = q = 0, and spot = 1.  For the remaining four parameters (\\kappa, \\eta, \\rho, and \\sigma), we consider a range for each and divide it into n_{\\text{steps}} = 5 equally spaced intervals. This results in n_{\\text{steps}}^4 = 625 possible combinations of parameter values. 
+The table below shows the considered ranges.
+
 | **Parameter** | **Range**                | **Steps** |
 |---------------|--------------------------|-----------|
-| $$\kappa$$    | From 0.1 to 0.9          | 3         |
-| $$\eta$$      | From $$0.05^2$$ to $$0.25^2$$ | 3         |
-| $$\rho$$      | From -0.9 to -0.1        | 3         |
-| $$\sigma$$    | From 0.1 to 0.5          | 3         |
+| $$\kappa$$    | From 0.1 to 0.9          | 5         |
+| $$\eta$$      | From $$0.05^2$$ to $$0.25^2$$ | 5         |
+| $$\rho$$      | From -0.9 to -0.1        | 5         |
+| $$\sigma$$    | From 0.1 to 0.5          | 5        |
 
 
 ### Monte Carlo Simulation
