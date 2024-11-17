@@ -222,11 +222,9 @@ def pricing(kappa,eta,rho,sigma):
     return ivs 
 ```
 
-One important note to mention:
-
-Initially, we consider the full grid of $$(k, \tau)$$ values, where $$k \in k_{\text{aux}}$$ and $$\tau \in \tau_{\\text{days}}$$. However, implied volatility is not successfully computed for all these grid points. 
+**NB:** Initially, we consider the full grid of $$(k, \tau)$$ values, where $$k \in k_{\text{aux}}$$ and $$\tau \in \tau_{\\text{days}}$$. However, implied volatility is not successfully computed for all these grid points. 
 To address this, we retain only those grid points that form a triangular region where implied volatility is successfully calculated for all 625 processes.
-"""
+
 
 ### The VAE Model Training 
 
