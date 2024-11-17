@@ -6,8 +6,9 @@ In this project, I focus on training a Variational Autoencoder (VAE), a generati
 - [Variational Autoencoders](#Variational-Autoencoders)
 - [Heston Model](#Heston-Model)
 - [Generative VAE model for Heston Model](#Generative-VAE-model-for-Heston-Model) 
- -[Random Walk](#Random-Walk)
- -[Fit a Random Surface Using the VAE Model](#Fit-a-Random-Surface-Using-the-VAE-Model)
+ -[Random Walk](##Random-Walk)
+ -[Fit a Random Surface Using the VAE Model](##Fit-a-Random-Surface-Using-the-VAE-Model)
+-[References](#References)
 
 ## Variational Autoencoders 
 
@@ -342,7 +343,7 @@ Figure below is an example of VAE's capablity of fitting a random surface. The '
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/vaefit.png" width="80%" height="100%">
 </p>
 
-### References 
+## References 
 
 [^1]: Kingma, D., Welling, M. (2019). *An Introduction to Variational Autoencoders*. [arXiv:1906.02691](https://arxiv.org/abs/1906.02691)
 [^2]: Poupart, P. (2019). *Introduction to Machine Learning*. [CS480/690 UWaterloo](https://cs.uwaterloo.ca/~ppoupart/teaching/cs480-spring19/)
