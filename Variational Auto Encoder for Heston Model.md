@@ -6,8 +6,9 @@ In this project, I focus on training a Variational Autoencoder (VAE), a generati
 - [Variational Autoencoders](#Variational-Autoencoders)
 - [Heston Model](#Heston-Model)
 - [Generative VAE model for Heston Model](#Generative-VAE-model-for-Heston-Model) 
- -[Random Walk](##Random-Walk)
- -[Fit a Random Surface Using the VAE Model](##Fit-a-Random-Surface-Using-the-VAE-Model)
+ -[Random Walk](#Random-Walk)
+ -[Fit a Random Surface Using the VAE Model](#Fit-a-Random-Surface-Using-the-VAE-Model)
+  
 -[References](#References)
 
 ## Variational Autoencoders 
