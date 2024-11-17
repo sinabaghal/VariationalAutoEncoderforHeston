@@ -229,8 +229,12 @@ def pricing(kappa,eta,rho,sigma):
 
 Python code below shows how the VAE module is constructed and trained! As discussed earlier, the loss function comprises two components: the Mean Squared Error (MSE) loss and the KL divergence loss. During training, the MSE loss converges to zero while the KL divergence loss levels off at 3. While this may not be optimal, it is sufficient for the purposes of our generative model.
 
-
 ```python
+
+hidden_sizes_encoder = [32, 64,128]
+hidden_sizes_decoder = [dim for dim in reversed(hidden_sizes_encoder)]
+latent_dims = 4
+
 class Encoder(nn.Module):
 
     def __init__(self, hidden_sizes_encoder, latent_dims):
