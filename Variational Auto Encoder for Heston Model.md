@@ -124,22 +124,35 @@ $$
 
 ### Training Data 
 
-The following set of maturities and moneyness is considered for our European options.
+The following sets of maturities and log-moneyness are considered for our European options:
+
+The maturities in days are defined as:
+\\[
+\\tau_{\\text{days}} = \\{0, 6, 12, 18\\} \\cup \\{26 \\cdot x \\mid x \\in \\{1, 2, \\ldots, 14\\}\\}.
+\\]
+
+The set of log-moneyness values, $$k_{\\text{aux}}$$, is constructed as follows. Let:
 
 $$
-\tau_{\text{days}} = \{0, 6, 12, 18\} \cup \{26 \cdot x \mid x \in \{1, 2, \ldots, 14\}\}.
+x_{\\min} = -k_{\\min}^{1/3}, \\quad x_{\\max} = k_{\\max}^{1/3},
 $$
 
-The set $$k_{\text{aux}}$$ defines the auxiliary log-moneyness values used for constructing the implied volatility surface. It is computed based on the cube of equally spaced points in the range $$[x_{\min}, x_{\max}]$$, where:
+where $$k_{\\min} = 0.4$$ and $$k_{\\max} = 0.6$$. Then:
 
 $$
-x_{\min} = -k_{\min}^{1/3}, \quad x_{\max} = k_{\max}^{1/3},
+k_{\\text{aux}} = \\{x^3 \\mid x \\in \\text{linspace}(x_{\\min}, x_{\\max}, 100)\\}.
 $$
-and $$k_{\min} = 0.4, k_{\max} = 0.6$$. Set
 
-$$
-k_{\text{aux}} = \{x^3 \mid x \in \text{linspace}(x_{\min}, x_{\max}, 100)\}.
-$$
+### Notable Characteristics
+This construction ensures that more log-moneyness values are concentrated around at-the-money (ATM) levels, capturing the critical region for accurate pricing and analysis.
+"""
+
+file_path = "/mnt/data/Maturities_and_LogMoneyness.txt"
+with open(file_path, "w") as file:
+    file.write(content)
+
+file_path
+
 
 ### Monte Carlo Simulation
 
