@@ -124,6 +124,23 @@ $$
 
 ### Training Data 
 
+The following set of maturities and moneyness is considered for our European options.
+
+$$
+\tau_{\text{days}} = \{0, 6, 12, 18\} \cup \{26 \cdot x \mid x \in \{1, 2, \ldots, 14\}\}.
+$$
+
+The set $$k_{\text{aux}}$$ defines the auxiliary log-moneyness values used for constructing the implied volatility surface. It is computed based on the cube of equally spaced points in the range $$[x_{\min}, x_{\max}]$$, where:
+
+$$
+x_{\min} = -k_{\min}^{1/3}, \quad x_{\max} = k_{\max}^{1/3},
+$$
+and $$k_{\min} = 0.4, k_{\max} = 0.6$$. Set
+
+$$
+k_{\text{aux}} = \{x^3 \mid x \in \text{linspace}(x_{\min}, x_{\max}, 100)\}.
+$$
+
 ### Monte Carlo Simulation
 
 ### The VAE Model Training 
