@@ -6,7 +6,7 @@ In this project, I focus on training a Variational Autoencoder (VAE), a generati
 - [Variational Autoencoders](#variational-autoencoders)
 - [Heston Model](#heston-model)
   - [Training Data](#training-data)
-  - [Pricing Using Monte Carlo Simulation](#pricing-using-monte-carlo-simulation)
+  - [Monte Carlo Simulation](#monte-carlo-simulation)
   - [The VAE Model Training](#the-vae-model-training)
 - [Generative VAE Model for Heston Model](#generative-vae-model-for-heston-model)
   - [Random Walk](#random-walk)
@@ -124,7 +124,7 @@ $$
 
 ### Training Data 
 
-### Pricing Using Monte Carlo Simulation
+### Monte Carlo Simulation
 
 ### The VAE Model Training 
 
