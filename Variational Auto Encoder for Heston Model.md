@@ -219,6 +219,7 @@ def pricing(kappa,eta,rho,sigma):
             iv = quantlib_iv(tau,strike, spot, float(r),float(q),today,expiry_date,option_price)        
             ivs.loc[tau_day, strike] = iv
 
+    # 0.05 was the lower bound considered for Quantliv IV calucation. 
     ivs[ivs==0.05] = np.nan
 
     # return df_av, ivs 
@@ -227,7 +228,9 @@ def pricing(kappa,eta,rho,sigma):
 
 ### The VAE Model Training 
 
-Python code below shows how the VAE module is constructed and trained! As discussed earlier, the loss function comprises two components: the Mean Squared Error (MSE) loss and the KL divergence loss. During training, the MSE loss converges to zero while the KL divergence loss levels off at 3. While this may not be optimal, it is sufficient for the purposes of our generative model.
+Python code below shows how the VAE module is constructed and trained! As discussed earlier, the loss function comprises two components: the Mean Squared Error (MSE) loss and the KL divergence loss. The total loss is defined using the constant $$\beta$$ parameter, and the two components of the loss are recorded whenever the best total loss value is identified during training.
+
+It is emphsized that during training, the MSE loss converges to zero while the KL divergence loss levels off at 3. While this may not be optimal, it is sufficient for the purposes of our generative model.
 
 ```python
 
