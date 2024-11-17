@@ -159,6 +159,9 @@ The table below shows the considered ranges.
 
 We now try to generate a set of 625 volatility surfaces. Monte Carlo simulation with the Full Truncation method is used to compute option prices under these 625 Heston parameter combinations. The pricing code is implemented in PyTorch to leverage GPU acceleration. To handle the computational load, $$2^{\text{num-path-log}}$$ Monte Carlo paths are generated in multiple rounds, and the resulting prices are averaged. This approach mitigates potential issues such as GPU memory exhaustion, which can lead to reduced speed or memory errors. You can adjust the number of paths and rounds based on your available computational resources.
 
+Once the option prices are calculated, we use QuantLib to compute the corresponding implied volatilities. Note that, initially, we consider the full grid of $$(k, \tau)$$ values, where $$k \in k_{\text{aux}}$$ and $$\tau \in \tau_{\\text{days}}$$. However, implied volatility is not successfully computed for all these grid points. To address this issue, we retain only those grid points that form a triangular region where implied volatility is successfully calculated for all 625 processes.
+
+
 ```python
 
 num_path_log = 23
@@ -221,10 +224,6 @@ def pricing(kappa,eta,rho,sigma):
     # return df_av, ivs 
     return ivs 
 ```
-
-**NB:** Initially, we consider the full grid of $$(k, \tau)$$ values, where $$k \in k_{\text{aux}}$$ and $$\tau \in \tau_{\\text{days}}$$. However, implied volatility is not successfully computed for all these grid points. 
-To address this, we retain only those grid points that form a triangular region where implied volatility is successfully calculated for all 625 processes.
-
 
 ### The VAE Model Training 
 
