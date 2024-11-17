@@ -142,7 +142,15 @@ $$
 k_{\\text{aux}} = \\{x^3 \\mid x \\in \\text{linspace}(x_{\\min}, x_{\\max}, 100)\\}.
 $$
 
-It is emphasized that this construction ensures that more log-moneyness values are concentrated around at-the-money (ATM) levels!
+It is emphasized that this construction ensures that more log-moneyness values are concentrated around at-the-money (ATM) levels.
+
+| **Parameter** | **Range**                | **Steps** |
+|---------------|--------------------------|-----------|
+| \(\kappa\)    | From 0.1 to 0.9          | 3         |
+| \(\eta\)      | From \(0.05^2\) to \(0.25^2\) | 3         |
+| \(\rho\)      | From -0.9 to -0.1        | 3         |
+| \(\sigma\)    | From 0.1 to 0.5          | 3         |
+
 
 ### Monte Carlo Simulation
 
