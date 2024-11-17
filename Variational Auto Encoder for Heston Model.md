@@ -222,6 +222,12 @@ def pricing(kappa,eta,rho,sigma):
     return ivs 
 ```
 
+One important note to mention:
+
+Initially, we consider the full grid of $$(k, \tau)$$ values, where $$k \in k_{\text{aux}}$$ and $$\tau \in \tau_{\\text{days}}$$. However, implied volatility is not successfully computed for all these grid points. 
+To address this, we retain only those grid points that form a triangular region where implied volatility is successfully calculated for all 625 processes.
+"""
+
 ### The VAE Model Training 
 
 Python code below shows how the VAE module is constructed and trained! As discussed earlier, the loss function comprises two components: the Mean Squared Error (MSE) loss and the KL divergence loss. During training, the MSE loss converges to zero while the KL divergence loss levels off at 3. While this may not be optimal, it is sufficient for the purposes of our generative model.
