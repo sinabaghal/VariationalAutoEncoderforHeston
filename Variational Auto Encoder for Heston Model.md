@@ -6,7 +6,8 @@ In this project, I focus on training a Variational Autoencoder (VAE), a generati
 - [Variational Autoencoders](#Variational-Autoencoders)
 - [Heston Model](#Heston-Model)
 - [Generative VAE model for Heston Model](#Generative-VAE-model-for-Heston-Model)
-
+ -[Random Walk](#Random-Walk)
+ -[Fit a Random Surface Using the VAE Model](#Fit-a-Random-Surface-Using-the-VAE-Model)
 
 ## Variational Autoencoders 
 
@@ -92,7 +93,7 @@ Two important notes are in order:
 - $$\frac{1}{m}\sum_n \Vert x_n-\tilde{x}_n\Vert^2$$ grows with $$\text{dim}(x_n)$$. In other words, there is no normalization factor to take into account the input data point's dimension.  
 - $$\mu_n$$ and $$\sigma_n$$ are functions of $$W_f$$, the encoder's weights. It is problem-specific how to choose the specifics of these functions. For example, in this project, we ask the network to learn $$\log \sigma$$. In other words, $$\log \sigma = f_\sigma(W_f)$$ for some function of $$W_f$$.
 
-### Heston Model
+## Heston Model
 Heston model consists of two coupled stochastic differential equations (SDEs):
 
 $$
@@ -116,7 +117,7 @@ $$
 
 ### Training Data 
 
-#### Pricing using Monte Carlo simulation
+### Pricing using Monte Carlo simulation
 
 ### The VAE model training 
 
@@ -239,7 +240,7 @@ Once the VAE model is trained, we use it to generate new volatility surfaces in 
 
 The next two subsections provide detailed explanations of these approaches.
 
-### Random Walk
+##
 
 To explore the generative capabilities of my Variational Autoencoder (VAE), I create a random walk in $$R^{\text{latent dim}}$$. This random walk is generated using Gaussian steps with their length re-scaled to $$dt=0.2$$. The resulting random walk serves as the input trajectory to the VAE. The two GIFs below display a walk of size 1000. The original GIF was not uploaded in its entirety due to its large size, so it has been split into two parts. 
 
@@ -253,7 +254,7 @@ To explore the generative capabilities of my Variational Autoencoder (VAE), I cr
 
 ![](part2.gif)
 
-### 2. Fit a random surface using the VAE model
+### Fit a Random Surface Using the VAE Model
 
 We next evaluate the generalization capabilities of our VAE model. To achieve this, we generate a random set of parameters and compute option prices through Monte Carlo simulations. Using these prices, we derive the implied volatility surface with the help of the QuantLib library. Subsequently, we employ the Adam optimizer to identify a point in the latent space that, when processed through the VAE, generates a volatility surface closely approximating the target surface, as measured by the mean squared error (MSE) loss. The Python snippet below shows the process.
 
