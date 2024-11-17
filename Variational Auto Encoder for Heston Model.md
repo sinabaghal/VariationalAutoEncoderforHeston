@@ -331,6 +331,8 @@ def train(autoencoder, epochs=print_epoch*10000):
     return autoencoder
 ```
 
+The figure below displays the logarithmic values of the MSE and KL divergence losses during the training process.
+
 <p align="center">
 <img src="https://github.com/sinabaghal/VariationalAutoEncoderforHeston/blob/main/logMSElogKL.png" width="80%" height="100%">
 </p>
