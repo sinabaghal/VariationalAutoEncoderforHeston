@@ -127,9 +127,10 @@ $$
 The following sets of maturities and log-moneyness are considered for our European options:
 
 The maturities in days are defined as:
-\\[
+
+$$
 \\tau_{\\text{days}} = \\{0, 6, 12, 18\\} \\cup \\{26 \\cdot x \\mid x \\in \\{1, 2, \\ldots, 14\\}\\}.
-\\]
+$$
 
 The set of log-moneyness values, $$k_{\\text{aux}}$$, is constructed as follows. Let:
 
