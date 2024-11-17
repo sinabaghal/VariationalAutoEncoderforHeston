@@ -11,7 +11,7 @@ In this project, I focus on training a Variational Autoencoder (VAE), a generati
 - [Generative VAE Model for Heston Model](#generative-vae-model-for-heston-model)
   - [Random Walk](#random-walk)
   - [Fit a Random Surface Using the VAE Model](#fit-a-random-surface-using-the-vae-model)
-- [How to Cite](#how-to-cite)
+- [Citation](#citation)
 - [References](#references)
 
 
@@ -350,7 +350,7 @@ Figure below is an example of VAE's capablity of fitting a random surface. The '
 </p>
 
 
-## How to Cite
+## Citation
 
 If you find this project helpful, please consider citing it:
 
