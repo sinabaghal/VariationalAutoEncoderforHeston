@@ -122,9 +122,9 @@ $$
 
 ### Training Data 
 
-### Pricing using Monte Carlo simulation
+### Pricing Using Monte Carlo Simulation
 
-### The VAE model training 
+### The VAE Model Training 
 
 Python code below shows how the VAE module is constructed!
 
