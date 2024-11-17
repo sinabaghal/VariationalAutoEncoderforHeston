@@ -157,7 +157,7 @@ The table below shows the considered ranges.
 
 ### Monte Carlo Simulation
 
-We now try to generate a set of 625 volatility surfaces. Monte Carlo simulation with the Full Truncation method is used to compute option prices under these 625 Heston parameter combinations. The pricing code is implemented in PyTorch to leverage GPU acceleration. To handle the computational load, $$2^{23}$$ Monte Carlo paths are generated in multiple rounds, and the resulting prices are averaged. This approach mitigates potential issues such as GPU memory exhaustion, which can lead to reduced speed or memory errors.
+We now try to generate a set of 625 volatility surfaces. Monte Carlo simulation with the Full Truncation method is used to compute option prices under these 625 Heston parameter combinations. The pricing code is implemented in PyTorch to leverage GPU acceleration. To handle the computational load, $$2^{\text{num_path_log}}$$ Monte Carlo paths are generated in multiple rounds, and the resulting prices are averaged. This approach mitigates potential issues such as GPU memory exhaustion, which can lead to reduced speed or memory errors. You can adjust the number of paths and rounds based on your available computational resources.
 
 ```python
 
