@@ -188,7 +188,7 @@ def pricing(kappa,eta,rho,sigma):
             vol = torch.sqrt(torch.relu(v))
             volsigma = vol*sigma
 
-            v = v + kappa_dt * (eta - vol) + volsigma*sdt * (rho * Zs - torch.sqrt(1 - rho**2) * Z1)
+            v = v + kappa_dt * (eta - torch.relu(v)) + volsigma*sdt * (rho * Zs - torch.sqrt(1 - rho**2) * Z1)
             S = S * torch.exp((- 0.5 * vol**2) * dt + vol*sdt * Zs)
 
             if t in taus_days[1:]:
