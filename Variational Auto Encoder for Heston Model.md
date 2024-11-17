@@ -10,6 +10,21 @@ In this project, I focus on training a Variational Autoencoder (VAE), a generati
 - [Fit a Random Surface Using the VAE Model](#Fit-a-Random-Surface-Using-the-VAE-Model)
 - [References](#References)
 
+# Table of Contents
+- [Introduction](#introduction)
+- [Background](#background)
+  - [Historical Context](#historical-context)
+  - [Key Concepts](#key-concepts)
+- [Methodology](#methodology)
+  - [Data Collection](#data-collection)
+  - [Modeling](#modeling)
+    - [Model Assumptions](#model-assumptions)
+    - [Model Validation](#model-validation)
+- [Results](#results)
+- [Discussion](#discussion)
+- [Conclusion](#conclusion)
+
+
 ## Variational Autoencoders 
 
 This section provides a brief overview of variational autoencoders (VAEs). For a deeper understanding, refer to [^1]. Video lectures (20 & 21) [^2] are also an excellent resource for learning the core concepts of VAEs.
