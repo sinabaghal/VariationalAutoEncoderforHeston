@@ -146,10 +146,10 @@ It is emphasized that this construction ensures that more log-moneyness values a
 
 | **Parameter** | **Range**                | **Steps** |
 |---------------|--------------------------|-----------|
-| \(\kappa\)    | From 0.1 to 0.9          | 3         |
-| \(\eta\)      | From \(0.05^2\) to \(0.25^2\) | 3         |
-| \(\rho\)      | From -0.9 to -0.1        | 3         |
-| \(\sigma\)    | From 0.1 to 0.5          | 3         |
+| $$\kappa$$    | From 0.1 to 0.9          | 3         |
+| $$\eta$$      | From $$0.05^2$$ to $$0.25^2$$ | 3         |
+| $$\rho$$      | From -0.9 to -0.1        | 3         |
+| $$\sigma$$    | From 0.1 to 0.5          | 3         |
 
 
 ### Monte Carlo Simulation
