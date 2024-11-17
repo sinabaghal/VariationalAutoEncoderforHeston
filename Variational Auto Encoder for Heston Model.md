@@ -144,7 +144,7 @@ $$
 
 It is emphasized that this construction ensures that more log-moneyness values are concentrated around at-the-money (ATM) levels.
 
-Next, we define a set of values for the Heston parameters. We fix $$v_0 = 0.05, r = q = 0$$, and spot = 1.  For the remaining four parameters $$\kappa, \eta, \rho, and \sigma$$, we consider a range for each and divide it into $$n_{\text{steps}} = 5$$ equally spaced intervals. This results in $$n_{\text{steps}}^4 = 625$$ possible combinations of parameter values. 
+Next, we define a set of values for the Heston parameters. We fix $$v_0 = 0.05, r = q = 0$$, and spot = 1.  For the remaining four parameters $$\kappa, \eta, \rho$$, and $$\sigma$$, we consider a range for each and divide it into $$n_{\text{steps}} = 5$$ equally spaced intervals. This results in $$n_{\text{steps}}^4 = 625$$ possible combinations of parameter values. 
 The table below shows the considered ranges.
 
 | **Parameter** | **Range**                | **Steps** |
@@ -156,6 +156,71 @@ The table below shows the considered ranges.
 
 
 ### Monte Carlo Simulation
+
+We now try to generate a set of 625 volatility surfaces. Monte Carlo simulation with the Full Truncation method is used to compute option prices under these 625 Heston parameter combinations. The pricing code is implemented in PyTorch to leverage GPU acceleration. To handle the computational load, $$2^{23}$$ Monte Carlo paths are generated in multiple rounds, and the resulting prices are averaged. This approach mitigates potential issues such as GPU memory exhaustion, which can lead to reduced speed or memory errors.
+
+```python
+
+num_path_log = 23
+round_log = 0
+num_paths = 2**num_path_log
+
+def pricing(kappa,eta,rho,sigma):
+
+    kappa_dt = torch.tensor(kappa * dt)
+    sdt = torch.sqrt(torch.tensor(dt, dtype=torch.float64,device=device))
+    df_gpus = []
+
+    for _ in range(2**round_log):
+
+        df_gpu = pd.DataFrame(index=taus_days[1:], columns=K_aux)
+        stocks = {t: [] for t in taus_days[1:]}
+        S = torch.full((num_paths,), spot, dtype=torch.float64, device=device)  # Initial asset price
+        v = torch.full((num_paths,), v0, dtype=torch.float64, device=device)  # Initial variance 
+        for t in range(1, timesteps + 1):
+            
+            Zs = torch.randn(num_paths,  dtype=torch.float64, device=device)
+            Z1 = torch.randn(num_paths,  dtype=torch.float64, device=device)
+
+            vol = torch.sqrt(torch.relu(v))
+            volsigma = vol*sigma
+
+            v = v + kappa_dt * (eta - vol) + volsigma*sdt * (rho * Zs - torch.sqrt(1 - rho**2) * Z1)
+            S = S * torch.exp((- 0.5 * vol**2) * dt + vol*sdt * Zs)
+
+            if t in taus_days[1:]:
+                stocks[t].append(S)  
+        
+        for t in taus_days[1:]: 
+            stocks[t] = torch.cat(stocks[t],dim=0)
+
+        stocks_tensor = torch.stack([stocks[t] for t in taus_days[1:]], dim=0)
+        del stocks 
+        for strike in K_aux: df_gpu.loc[:, strike] = torch.relu(stocks_tensor-strike).mean(axis=1).cpu()
+        df_gpus.append(df_gpu)
+
+    df_av = sum(df_gpus)/len(df_gpus)
+
+
+    ### Computing the implied volatility 
+
+    ivs = pd.DataFrame(index=taus_days[1:], columns=K_aux)
+    for tau_idx, tau_day in enumerate(taus_days[1:]):
+
+        tau = Times[tau_day]
+        expiry_date = today+ql.Period(tau_day,ql.Days)
+        
+        for strike_idx, strike in enumerate(K_aux):
+        
+            option_price = df_av.iloc[tau_idx, strike_idx]
+            iv = quantlib_iv(tau,strike, spot, float(r),float(q),today,expiry_date,option_price)        
+            ivs.loc[tau_day, strike] = iv
+
+    ivs[ivs==0.05] = np.nan
+
+    # return df_av, ivs 
+    return ivs 
+```
 
 ### The VAE Model Training 
 
