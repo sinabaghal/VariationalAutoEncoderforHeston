@@ -144,16 +144,7 @@ $$
 k_{\\text{aux}} = \\{x^3 \\mid x \\in \\text{linspace}(x_{\\min}, x_{\\max}, 100)\\}.
 $$
 
-### Notable Characteristics
-This construction ensures that more log-moneyness values are concentrated around at-the-money (ATM) levels, capturing the critical region for accurate pricing and analysis.
-"""
-
-file_path = "/mnt/data/Maturities_and_LogMoneyness.txt"
-with open(file_path, "w") as file:
-    file.write(content)
-
-file_path
-
+It is emphasized that this construction ensures that more log-moneyness values are concentrated around at-the-money (ATM) levels!
 
 ### Monte Carlo Simulation
 
